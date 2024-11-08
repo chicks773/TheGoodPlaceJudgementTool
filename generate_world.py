@@ -1,4 +1,4 @@
-import tgp_info
+import tgpjt_info
 
 import pandas as pd
 
@@ -25,10 +25,10 @@ def get_timestamp():
 
 def generate_name():
 	#generate a random firstname and lastname (i.e. "Eleanor Shellstrop")
-	#from the list of possible names in tgp_info
+	#from the list of possible names in tgpjt_info
 	#returns name (str)
-	firstName = random.choice(tgp_info.possible_first_names)
-	lastName = random.choice(tgp_info.possible_last_names)
+	firstName = random.choice(tgpjt_info.possible_first_names)
+	lastName = random.choice(tgpjt_info.possible_last_names)
 	name = (firstName + " " + lastName)
 	return name
 
@@ -63,13 +63,13 @@ def remove_conflicting_personality_traits(personality):
 
 def generate_personality():
 	#choose 0, 1, or 2 random personality traits from the list
-	#of possible personality traits in tgp_info
+	#of possible personality traits in tgpjt_info
 	#return list of personality traits (strings)
 
 	n = random.randint(0, 2)
 
 	#create sample (without replacement) of size n from possible personality traits
-	personality = random.sample(tgp_info.possible_personality_traits, n)
+	personality = random.sample(tgpjt_info.possible_personality_traits, n)
 
 	#run function to remove conflicting personality traits
 	personality = remove_conflicting_personality_traits(personality)
@@ -170,9 +170,18 @@ def generate_person():
 
 
 def __main__():
-	print("Please enter the number of people to generate")
-	n = int(input())
-	#todo - check is n good
+	#ask user for n, and only accept if n is an integer > 0
+	n = ''
+	while (n == ''):
+		print("Please enter the number of people to generate")
+		n = input()
+		try:
+			n = int(n)
+			assert(n > 0)
+		except:
+			print("please enter a valid n, must be an integer > 0")
+			n = ''
+
 
 	df = pd.DataFrame(columns=["name", "personality", "points list"])
 
@@ -180,9 +189,10 @@ def __main__():
 		person = generate_person()
 		df = pd.concat([df, person])
 
-	output_filename = "TGP_" + str(n) + "_" + get_timestamp() + ".csv"
+	output_filename = "TGPJT_" + str(n) + "_" + get_timestamp() + ".csv"
 	df.to_csv(output_filename, index=False)
-	print(df.head())
+
+	print("file saved as {}".format(output_filename))
 
 	return
 

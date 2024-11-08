@@ -43,21 +43,23 @@ possible_personality_traits = ["kind", "unkind", "unstable", "stable"]
 # unstable: stdev +5
 # stable: stdev -5
 
+personality_traits_avg_dict = {"kind": 10, "unkind": -10, "stable": 0, "unstable": 0}
+personality_traits_stdev_dict = {"kind": 0, "unkind": 0, "stable": -5, "unstable": 5}
+#todo - use this in generate_world
+
 
 
 
 """
-extra
+extra and further improvements
 
-personality traits dict
-one for average, one for stdev
-where string personality trait returns numerical value of what to do to avg or stdev
 
 add more stuff to the people - gender, birthplace, death place, etc
 
 easter eggs
 if born in Florida, high chance for unstable or unkind
 if born in Arizona, high chance for unkind
+
 
 
 
